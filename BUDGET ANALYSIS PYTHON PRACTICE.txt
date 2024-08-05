@@ -1,0 +1,53 @@
+BUDGET ANALYSIS PYTHON SIMPLE PRACTICE
+
+BY PYTHON USE GOOGLE COLAB
+
+===Download Dataset: https://drive.google.com/file/d/1qsd-AI_LQAb3UhezQsnqnb7gENYlkB_F/view?usp=sharing
+
+#STEP 1
+===Import File to Google Colab===
+
+import pandas as pd
+from google.colab import files
+import1 = files.upload()
+
+=then choose/upload file
+=wait till success
+
+#STEP 2
+===Define the uploaded file===
+
+import io
+data = pd.read_csv(io.StringIO(import1['apbn_indonesia_2024.csv'].decode('utf-8')))
+data.head()
+
+=import1 mean the variable when you upload the file in step 1
+=apbn_indonesia.... mean the file name that google collab save
+=we can see in Saving -------- to ----------.csv
+
+
+#STEP 3
+===PLOT DATA to BAR====
+
+import matplotlib.pyplot as plt
+data['Budget in Billion Rupiah'] = pd.to_numeric(data['Budget in Billion Rupiah'], errors='coerce') #to convert data type
+data = data.dropna(subset=['Budget in Billion Rupiah']) #to drop N/A value
+data.plot.bar(x='Budget Function', y='Budget in Billion Rupiah') #to plot the table
+plt.show() #to show the plot
+
+#STEP 4 
+===PIECHART DATA====
+
+import matplotlib.pyplot as plt
+df = data["Budget in Billion Rupiah"]
+labels = data["Budget Function"]
+plt.figure(figsize=(8,8))
+plt.pie(df, labels=labels, autopct='%1.2f%%', startangle=90, pctdistance=0.85, shadow =False)
+central_circle = plt.Circle((0, 0), 0.5, color='white')
+fig = plt.gcf()
+fig.gca().add_artist(central_circle)
+plt.rc('font', size=12)
+plt.title("INDONESIA NATIONAL FUNCTION BUDGET 2024", fontsize=20)
+plt.show()
+
+
